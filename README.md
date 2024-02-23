@@ -34,7 +34,7 @@ A tradução do código acima para o Assembly MIPS pode ser encontrado no arquiv
 No arquivo os registradores $a0, $a1, $a2 são responsaveis por armazenarem os valores, respectivamente, do endereço de inicio da matriz relativa ao tabuleiro, linha escolhida pelo usuario e coluna escolhida pelo usuario. Valores que são passados para os registradores tipo S de mesmo número, para que sejam usados ao longo do código.
 
 
-````assembly
+```assembly
     sll $t1, $s1, 5 
     sll $t2, $s2, 2
   
