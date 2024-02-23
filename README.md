@@ -33,15 +33,42 @@ A tradução do código acima para o Assembly MIPS pode ser encontrado no arquiv
 ### Passagem de parametros:
 No arquivo os registradores $a0, $a1, $a2 são responsaveis por armazenarem os valores, respectivamente, do endereço de inicio da matriz relativa ao tabuleiro, linha escolhida pelo usuario e coluna escolhida pelo usuario. Valores que são passados para os registradores tipo S de mesmo número, para que sejam usados ao longo do código.
 
+### Acesso a endereços e valores da memoria:
+
+O código a seguir efetua o calculo do deslocamento, em bits, com base nos valores de linha e coluna enviado pelo usuario, armazenando o deslocamento total que deve ser efetuado no registrador $t0, logo em seguida somando o deslocamento ao endereço inicial do tabuleiro. Ao final do código, os registradores $s0 e $s3 armazenam, respectivamente, o endereço e valor da celula nas coordenadas enviadas pelo usuario.
 
 ```assembly
-    sll $t1, $s1, 5 
-    sll $t2, $s2, 2
-  
-    add $t0, $t1, $t2
-    
-    add $s0, $s0, $t0
-  
-    lw $s3, 0($s0)
+sll $t1, $s1, 5 
+sll $t2, $s2, 2
+
+add $t0, $t1, $t2
+
+add $s0, $s0, $t0
+
+lw $s3, 0($s0)
+```
+
+### Comparações:
+
+O código a seguir equivale ao conjunto de dois *if* apresentado na função ***play***. Primeiro comparando $s3(valor da celula escolhida) com $t1(-1), caso sejam iguais o codigo irá saltar para a label *play_resturn_0*, explicação adiante. Se o caso anterior não tiver acontecido será feita a comparação de $s3 com $t5(-2) caso sejam diferentes o código saltará para *play_return_1*, do contrário chamará a função *countAdjacentBombs* e a seguir armazenará $a3 (retorno de countAdjacentBombs) no registrador $s4 para uso posterior. Caso $s4 seja diferente de 0 será chamada a label *play_return_1* imediatamente, se não será chamada a função *revealNeighboringCells* para só então ser chamado o *play_return_1*.
+
+```assembly
+li $t3, -1
+beq $s3, $t3, play_return_0
+
+li $t5, -2
+bne $s3, $t5, play_return_1
+
+jal countAdjacentBombs
+
+move $s4, $a3
+
+sw $s4, 0($s0)
+
+bnez $s4, play_return_1
+
+jal revealNeighboringCells
+
+j play_return_1
 ```
 
