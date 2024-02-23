@@ -2,7 +2,12 @@
 
 ## Macros:
 
-Ao logo de todo o codigo Assembly serão usados macros pré-montado, estes são *save_context* e *restore_context*, além das labels *SIZE* e *COUNT_BOMB*, todos esses macros e labels podem ser encontrados no arquivo   
+Ao logo de todo o codigo Assembly serão usados macros pré-montado, estes são *save_context* e *restore_context*, além das labels *SIZE* e *COUNT_BOMB*, todos esses macros e labels podem ser encontrados no arquivo <a href="https://github.com/Henrique-Izidio/minesweper_assembly/blob/main/macros.asm">macros.asm<a/> e possuem as seguintes funções:
+
+- **save_context:** Salva na memoria os valores de todos os registradores tipo S  e tambem do registrador $ra.
+- **restore_context:** Recupera da memoria os valores de todos os registradores tipo S e tambem reistrador ra, atribuindo a eles os valores que eles tinham no momento em que o *save_context* foi chamado pela ultima vez.
+- **SIZE:** label equivalente ao valor 8 (número de celulas em uma linha/coluna do tabuleiro).
+- **BOMB_COUNT:** label equivalente ao valor 10 (Número total de bombas do tabuleiro).
 
 ## Função Play:
 
