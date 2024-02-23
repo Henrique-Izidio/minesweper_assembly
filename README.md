@@ -30,3 +30,18 @@ O código a seguir mostra a função play, ela recebe como parâmetros um tabule
 
 A tradução do código acima para o Assembly MIPS pode ser encontrado no arquivo <a href="https://github.com/Henrique-Izidio/minesweper_assembly/blob/main/play.asm">play.asm<a/>. A seguir encontra-se a explicação do código em Assembly MIPS correlacionado ao código C acima.
 
+### Passagem de parametros:
+No arquivo os registradores $a0, $a1, $a2 são responsaveis por armazenarem os valores, respectivamente, do endereço de inicio da matriz relativa ao tabuleiro, linha escolhida pelo usuario e coluna escolhida pelo usuario. Valores que são passados para os registradores tipo S de mesmo número, para que sejam usados ao longo do código.
+
+
+````assembly
+    sll $t1, $s1, 5 
+    sll $t2, $s2, 2
+  
+    add $t0, $t1, $t2
+    
+    add $s0, $s0, $t0
+  
+    lw $s3, 0($s0)
+```
+
