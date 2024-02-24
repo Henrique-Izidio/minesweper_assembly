@@ -72,3 +72,26 @@ jal revealNeighboringCells
 j play_return_1
 ```
 
+OBS.: As labels *play_return_0* e *play_return_1* atribuem ao registrador $v0 o valor inteiro listado em seus nomes e em seguida realizão os seguintes comandosu:
+
+```assembly
+restore_context
+jr $ra
+```
+
+## Count Adjacent Bombs
+```c
+int countAdjacentBombs(int board[][SIZE], int row, int column) {
+    // Counts the number of bombs adjacent to a cell
+    int count = 0;
+    
+    for (int i = row - 1; i <= row + 1; ++i) {
+        for (int j = column - 1; j <= column + 1; ++j) {
+            if (i >= 0 && i < SIZE && j >= 0 && j < SIZE && board[i][j] == -1) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+```
